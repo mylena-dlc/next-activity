@@ -1,0 +1,11 @@
+model Activity {
+    id           String @id @default(auto()) @map("_id") @db.ObjectId
+    name String
+    description String
+    latitude    Float
+    longitude   Float
+
+    categoryId  String  @db.ObjectId 
+    category    Category @relation(fields: [categoryId], references: [id]) 
+
+}
