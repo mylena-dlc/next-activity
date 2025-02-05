@@ -4,6 +4,7 @@ model Activity {
     description String
     latitude    Float
     longitude   Float
+    image String
 
     categoryId  String  @db.ObjectId 
     category    Category @relation(fields: [categoryId], references: [id]) 

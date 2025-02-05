@@ -1,6 +1,7 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
+import Card from "@/components/Card";
 import { useEffect, useState } from "react";
 
 type Category = {
@@ -59,14 +60,15 @@ export default function Home() {
     <div>
       <Navbar />
       <h1>Catégories</h1>
-      <ul>
+      {/* <ul>
         {categories.map((category) => (
           <li key={category.id} className="p-2 border-b">
             {category.nameCategory}
           </li>
         ))}
-      </ul>
+      </ul> */}
 
+<Card />
 
       <form onSubmit={handleAddCategory} className="mt-4">
         <input

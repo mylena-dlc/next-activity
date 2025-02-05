@@ -20,6 +20,9 @@ export async function GET(request: NextRequest, { params }: Props) {
             where: {
                 id: categoryId
             },
+            include: {
+                activities: true,
+            },
         });
 
         if (!category) {

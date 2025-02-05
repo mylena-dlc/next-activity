@@ -5,7 +5,7 @@ datasource db {
 }
 generator client {
     provider = "prisma-client-js"
-    previewFeatures = ["fullTextSearch", "fullTextIndex", "prismaSchemaFolder"]
+    previewFeatures = ["prismaSchemaFolder"]
 }
  
 // npx prisma generate
