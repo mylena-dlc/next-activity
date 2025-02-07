@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import Navbar from "@/components/Navbar";
 
 type Activity = {
   id: string;
@@ -39,7 +38,6 @@ const ActivityDetail = () => {
 
   return (
     <> 
-        <Navbar />
         <div className="p-6 flex flex-col justify-center">
            
             <h1 className="text-2xl font-bold my-2 text-center">{activity.name}</h1>

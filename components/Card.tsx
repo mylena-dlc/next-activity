@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 
 type Activity = {
@@ -21,6 +22,7 @@ type Activity = {
 const Card: React.FC = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const router = useRouter();
+    const { isSignedIn } = useUser();
 
     useEffect(() => {
         async function fetchCategories() {
@@ -59,12 +61,14 @@ const Card: React.FC = () => {
                 )}
                 </ul>
 
-                <button
-                  className=" bg-color1 hover:bg-color2 text-white rounded-xl flex items-center justify-center text-sm py-2 px-4 my-4 transition"
-                  onClick={() => router.push(`/activity/add/?categoryId=${category.id}`)}
-                >
-                  + Ajouter une activité
-                </button>
+                {isSignedIn && (
+                  <button
+                    className="bg-color1 hover:bg-color2 text-white rounded-xl flex items-center justify-center text-sm py-2 px-4 my-4 transition"
+                    onClick={() => router.push(`/activity/add/?categoryId=${category.id}`)}
+                  >
+                    + Ajouter une activité
+                  </button>
+                )}
 
               </div>
             ))}

@@ -1,8 +1,9 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
 import Card from "@/components/Card";
 import { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+
 
 type Category = {
   id: string;
@@ -13,6 +14,7 @@ export default function Home() {
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState("");
+  const { isSignedIn } = useUser();
 
   
   useEffect(() => {
@@ -58,25 +60,26 @@ export default function Home() {
 
   return (
     <div>
-      <Navbar />
       <Card />
       <div className="bg-color1 p-6">
-        <h2 className="uppercase text-white text-center font-bold">ajouter une catégorie</h2>
-        <form onSubmit={handleAddCategory} className="mt-4 flex justify-center">
-                <input
-                  type="text"
-                  value={newCategory}
-                  onChange={(e) => setNewCategory(e.target.value)}
-                  placeholder="Nouvelle catégorie"
-                  className="border p-2 rounded-xl"
-                />
-                <button type="submit" className="bg-color5 text-gray-700 p-2 ml-2 rounded-xl">
-                  Ajouter
-                </button>
-              </form>
+          {isSignedIn && (
+            <>
+              <h2 className="uppercase text-white text-center font-bold">ajouter une catégorie</h2>
+              <form onSubmit={handleAddCategory} className="mt-4 flex justify-center">
+                      <input
+                        type="text"
+                        value={newCategory}
+                        onChange={(e) => setNewCategory(e.target.value)}
+                        placeholder="Nouvelle catégorie"
+                        className="border p-2 rounded-xl"
+                      />
+                      <button type="submit" className="bg-color5 text-gray-700 p-2 ml-2 rounded-xl">
+                        Ajouter
+                      </button>
+                </form>
+            </>
+          )}
       </div>
-      
     </div>
-   
   );
 }
