@@ -2,6 +2,8 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import Navbar from "@/components/Navbar";
+
 
 const AddActivity = () => {
   const searchParams = useSearchParams();
@@ -44,61 +46,66 @@ const AddActivity = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Ajouter une activité</h1>
+    <> 
+      <Navbar />
 
-      {error && <p className="text-red-500">{error}</p>}
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">Ajouter une activité</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Nom de l'activité"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+        {error && <p className="text-red-500">{error}</p>}
 
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Nom de l'activité"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="border p-2 w-full"
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Latitude"
-          value={latitude}
-          onChange={(e) => setLatitude(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="border p-2 w-full"
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="Longitude"
-          value={longitude}
-          onChange={(e) => setLongitude(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+          <input
+            type="text"
+            placeholder="Latitude"
+            value={latitude}
+            onChange={(e) => setLatitude(e.target.value)}
+            className="border p-2 w-full"
+            required
+          />
 
-        <input
-          type="text"
-          placeholder="URL de l'image"
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          className="border p-2 w-full"
-          required
-        />
+          <input
+            type="text"
+            placeholder="Longitude"
+            value={longitude}
+            onChange={(e) => setLongitude(e.target.value)}
+            className="border p-2 w-full"
+            required
+          />
 
-        <button type="submit" className="bg-gray-500 text-white p-2 rounded">
-          Ajouter
-        </button>
-      </form>
-    </div>
+          <input
+            type="text"
+            placeholder="URL de l'image"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            className="border p-2 w-full"
+            required
+          />
+
+          <button type="submit"className=" bg-color1 hover:bg-color2 text-white rounded-xl flex items-center justify-center text-sm py-2 px-4 my-4 transition"
+          >
+            Ajouter
+          </button>
+        </form>
+      </div>
+      </>
   );
 };
 

@@ -51,37 +51,30 @@ export default function Home() {
 
       setCategories([...categories, data]); // Ajouter la nouvelle catégorie à la liste
       setNewCategory(""); // Réinitialiser le champ
-    } catch (err) {
-      setError((err as Error).message);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des catégories', error);
     }
   }
 
   return (
     <div>
       <Navbar />
-      <h1>Catégories</h1>
-      {/* <ul>
-        {categories.map((category) => (
-          <li key={category.id} className="p-2 border-b">
-            {category.nameCategory}
-          </li>
-        ))}
-      </ul> */}
-
-<Card />
-
-      <form onSubmit={handleAddCategory} className="mt-4">
-        <input
-          type="text"
-          value={newCategory}
-          onChange={(e) => setNewCategory(e.target.value)}
-          placeholder="Nouvelle catégorie"
-          className="border p-2"
-        />
-        <button type="submit" className="bg-blue-500 text-white p-2 ml-2">
-          Ajouter
-        </button>
-      </form>
+      <Card />
+      <div className="bg-color1 p-6">
+        <h2 className="uppercase text-white text-center font-bold">ajouter une catégorie</h2>
+        <form onSubmit={handleAddCategory} className="mt-4 flex justify-center">
+                <input
+                  type="text"
+                  value={newCategory}
+                  onChange={(e) => setNewCategory(e.target.value)}
+                  placeholder="Nouvelle catégorie"
+                  className="border p-2 rounded-xl"
+                />
+                <button type="submit" className="bg-color5 text-gray-700 p-2 ml-2 rounded-xl">
+                  Ajouter
+                </button>
+              </form>
+      </div>
       
     </div>
    
