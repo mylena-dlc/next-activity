@@ -2,8 +2,17 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { Suspense } from "react";
 
 const AddActivity = () => {
+  return (
+    <Suspense fallback={<p>Chargement...</p>}>
+      <AddActivityContent />
+    </Suspense>
+  );
+};
+
+const AddActivityContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const categoryId = searchParams.get("categoryId");
@@ -105,4 +114,4 @@ const AddActivity = () => {
   );
 };
 
-export default AddActivity;
+export default AddActivityContent;

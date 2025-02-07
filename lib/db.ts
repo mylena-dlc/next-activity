@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
  
 // Declaring a global variable prisma with type PrismaClient or undefined
 declare global {
-    let prisma: PrismaClient | undefined;
+    var prisma: PrismaClient | undefined;
 }
  
 // Exporting db which either uses the global prisma instance or creates a new PrismaClient instance
