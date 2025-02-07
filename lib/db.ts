@@ -1,11 +1,16 @@
+// Importing PrismaClient from the @prisma/client package
 import { PrismaClient } from "@prisma/client";
-
-// Vérifier si Prisma existe déjà dans globalThis
-const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
-
-// Utiliser l'instance existante ou en créer une nouvelle
-export const db = globalForPrisma.prisma ?? new PrismaClient();
-
+ 
+// Declaring a global variable prisma with type PrismaClient or undefined
+declare global {
+    var prisma: PrismaClient | undefined;
+}
+ 
+// Exporting db which either uses the global prisma instance or creates a new PrismaClient instance
+export const db = globalThis.prisma || new PrismaClient();
+ 
+// If not in production environment, assigning the db instance to the global prisma variable
 if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = db;
+    // Use `let` here instead of `var` to declare a global variable
+    globalThis.prisma = db;
 }

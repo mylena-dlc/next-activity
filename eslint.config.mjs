@@ -14,8 +14,8 @@ const eslintConfig = [
   {
     rules: {
       "no-var": "off",
-    }
-  }
+    },
+  },
 ];
 
 export default eslintConfig;
