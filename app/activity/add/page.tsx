@@ -114,4 +114,4 @@ const AddActivityContent = () => {
   );
 };
 
-export default AddActivityContent;
+export default AddActivity;
