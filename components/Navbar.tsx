@@ -18,16 +18,16 @@ const Navbar = () => {
             <SignedIn>
             </SignedIn>
               <SignedOut>
-                  <a href='/sign-in'>
-                      <button className='text-color1 bg-color5 border-0 p-2 focus:outline-none hover:bg-color4 rounded text-base mr-4'>
-                        Connexion
-                      </button>
-                  </a>
-                  <a href='/sign-up'>
-                      <button className='text-color1 bg-color5 border-0 p-2 focus:outline-none hover:bg-color4 rounded text-base'>
-                        Inscription
-                      </button>
-                  </a>
+                <Link href="/sign-in">
+                  <button className='text-color1 bg-color5 border-0 p-2 focus:outline-none hover:bg-color4 rounded text-base mr-4'>
+                      Connexion
+                  </button>
+              </Link>
+              <Link href="/sign-up">
+                  <button className='text-color1 bg-color5 border-0 p-2 focus:outline-none hover:bg-color4 rounded text-base'>
+                      Inscription
+                  </button>
+              </Link>
               </SignedOut>
               <SignedIn>
                   <div className='ml-4'>
