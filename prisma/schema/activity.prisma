@@ -8,5 +8,5 @@ model Activity {
 
     categoryId  String  @db.ObjectId 
     category    Category @relation(fields: [categoryId], references: [id]) 
-
 }
+

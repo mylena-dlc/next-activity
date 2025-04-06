@@ -1,14 +1,24 @@
 import { db } from "@/lib/db";
-import {  NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { categorySchema } from "@/lib/validation"; 
+import { auth } from "@clerk/nextjs/server";
+import { rateLimiter } from "@/lib/rateLimiter";
 
+type SessionClaims = {
+  publicMetadata?: {
+    role?: string;
+  };
+};
 
-export async function GET() {
+export async function GET(req: NextRequest) {
     try {
+        const limitResponse = rateLimiter(req);
+        if (limitResponse) return limitResponse;
+
         const categories = await db.category.findMany({
           include: {
             activities: true,
           }
-
         });
 
         if (!categories) {
@@ -27,19 +37,39 @@ export async function GET() {
 }
 
 
-export async function POST(request: Request) {
+export async function POST(req: NextRequest) {
     try {
-      const body = await request.json();
-      const { nameCategory } = body;
-  
-      // Vérification des données
-      if (!nameCategory) {
-        return NextResponse.json(
-            { error: "Le nom de la catégorie est manquant" },
-            { status: 400 }
-        );
+      const limitResponse = rateLimiter(req);
+      if (limitResponse) return limitResponse;
+
+      const { userId, sessionClaims } = await auth() as { userId: string, sessionClaims?: SessionClaims };
+ 
+      if (!userId) {
+          return NextResponse.json(
+              { error: "Accès non autorisé. Veuillez vous connecter." },
+              { status: 401 }
+          );
       }
-  
+
+      const role = sessionClaims?.publicMetadata?.role ?? "undefined";
+
+      if (role !== "admin") {
+          return NextResponse.json(
+              { error: "Accès refusé. Vous devez être administrateur." },
+              { status: 403 }
+          );
+      }
+
+      const body = await req.json();
+
+      const parsedData = categorySchema.safeParse(body); //  vérification du schéma Zod
+
+      if (!parsedData.success) {
+        return NextResponse.json({ error: JSON.stringify(parsedData.error.format()) }, { status: 400 });
+      }
+
+      const { nameCategory } = parsedData.data;
+
       // Ajouter la catégorie dans la base de données
       const newCategory = await db.category.create({
         data: {

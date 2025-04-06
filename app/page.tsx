@@ -14,7 +14,9 @@ export default function Home() {
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState("");
-  const { isSignedIn } = useUser();
+
+  const { user } = useUser();
+  const isAdmin = user?.publicMetadata?.role === "admin";
 
   
   useEffect(() => {
@@ -62,7 +64,7 @@ export default function Home() {
     <div>
       <Card />
       <div className="bg-color1 p-6">
-          {isSignedIn && (
+          {isAdmin && (
             <>
               <h2 className="uppercase text-white text-center font-bold">ajouter une catégorie</h2>
               <form onSubmit={handleAddCategory} className="mt-4 flex justify-center">
